@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIOZYME PERFORMANCE WHEY — MuscleBlaze Concept Campaign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --ivory:#F2EFE6;
+  --paper:#FAF8F1;
+  --ink:#111111;
+  --red:#C8102E;
+  --maroon:#74101F;
+  --grey:#73716B;
+  --gunmetal:#3d3d40;
+  --yellow:#f2b705;
+  --line: rgba(17,17,17,0.14);
+  --display: 'Anton', sans-serif;
+  --body: 'Oswald', sans-serif;
+  --hand: 'Caveat', cursive;
+  --rail-w: 64px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:var(--body);
+  overflow-x:hidden;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:url('grain.png');
+  background-size:300px 300px;
+  opacity:0.5;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+  z-index:9998;
+}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+button{font-family:var(--body); cursor:pointer; border:none; background:none;}
+.eyebrow{
+  font-family:var(--hand);
+  font-size:1.4rem;
+  color:var(--red);
+  display:inline-block;
+  margin-bottom:10px;
+}
+.uppercase{text-transform:uppercase;}
+.wrap{ margin-left:var(--rail-w); }
+
+/* distressed headline texture */
+.headline{
+  font-family:var(--display);
+  text-transform:uppercase;
+  line-height:0.86;
+  letter-spacing:0.5px;
+  color:var(--maroon);
+  position:relative;
+}
+.headline.textured{
+  background-image:
+    repeating-linear-gradient(0deg, rgba(17,17,17,0.05) 0px, rgba(17,17,17,0.05) 1px, transparent 1px, transparent 3px);
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+.headline .stroke{ -webkit-text-stroke: 1px rgba(17,17,17,0.08); }
+
+/* buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 26px;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:0.82rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border-radius:0;
+  position:relative;
+  overflow:hidden;
+  transition:transform .25s ease;
+}
+.btn-primary{
+  background:var(--red);
+  color:var(--paper);
+}
+.btn-primary .arrow{ transition: transform .3s ease; }
+.btn-primary:hover .arrow{ transform:translateX(6px); }
+.btn-primary::after{
+  content:"";
+  position:absolute; inset:0;
+  background:var(--ink);
+  transform:translateY(101%);
+  transition:transform .35s cubic-bezier(.65,0,.35,1);
+  z-index:0;
+}
+.btn-primary:hover::after{ transform:translateY(0); }
+.btn-primary span, .btn-primary .arrow{ position:relative; z-index:1; }
+
+.btn-ghost{
+  color:var(--ink);
+  font-size:0.78rem;
+  letter-spacing:1.5px;
+  font-weight:600;
+  border-bottom:1px solid var(--ink);
+  padding:4px 0;
+  position:relative;
+}
+.btn-ghost::after{
+  content:"";
+  position:absolute; left:0; bottom:-1px; height:1px; width:0;
+  background:var(--red);
+  transition:width .3s ease;
+}
+.btn-ghost:hover::after{ width:100%; }
+
+/* ============ LEFT NAV RAIL ============ */
+.rail{
+  position:fixed; left:0; top:0; bottom:0; width:var(--rail-w);
+  background:var(--paper);
+  border-right:1px solid var(--line);
+  display:flex; flex-direction:column; align-items:center;
+  padding:22px 0;
+  z-index:1000;
+}
+.rail-top{ display:flex; flex-direction:column; align-items:center; gap:22px; }
+.rail-icon{
+  width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.rail-icon svg{ width:18px; height:18px; stroke:var(--ink); }
+.rail-divider{ width:22px; height:1px; background:var(--line); margin:16px 0; }
+.rail-progress-track{
+  width:2px; flex:1; background:var(--line); position:relative; border-radius:0;
+  margin:14px 0;
+}
+.rail-progress-fill{
+  position:absolute; top:0; left:0; width:100%; height:0%;
+  background:var(--red);
+}
+.rail-dots{ display:flex; flex-direction:column; gap:14px; align-items:center; margin-top:14px; }
+.rail-dot{
+  width:6px; height:6px; border-radius:50%; background:var(--line);
+  transition:all .3s ease; cursor:pointer;
+}
+.rail-dot.active{ background:var(--red); width:8px; height:8px; }
+
+/* ============ TOP BAR ============ */
+.topbar{
+  position:fixed; top:0; left:var(--rail-w); right:0; height:78px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 32px;
+  z-index:900;
+  pointer-events:none;
+}
+.topbar > *{ pointer-events:auto; }
+.brand{
+  font-family:var(--display);
+  font-size:1.3rem;
+  letter-spacing:1px;
+}
+.brand .b{ color:var(--red); }
+.buy-now-fixed{
+  padding:11px 22px;
+  background:var(--red);
+  color:var(--paper);
+  font-size:0.72rem;
+  letter-spacing:2px;
+  font-weight:600;
+  transition:background .3s ease;
+}
+.buy-now-fixed:hover{ background:var(--ink); }
+
+/* ============ SECTION GENERIC ============ */
+section{ position:relative; }
+.section-pad{ padding:120px 60px; }
+.container{ max-width:1400px; margin:0 auto; }
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  padding-top:78px;
+}
+.hero-visual{
+  position:relative;
+  flex:1 1 auto;
+  min-height:0;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.hero-bg-text{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  z-index:1;
+  pointer-events:none;
+}
+.hero-bg-text h1{
+  font-size:clamp(4rem, 12vw, 10.5rem);
+  text-align:center;
+  color:var(--maroon);
+  opacity:0.92;
+}
+.hero-stage{
+  position:relative; z-index:5;
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-product{
+  height:80%;
+  max-height:520px;
+  filter: drop-shadow(0 40px 40px rgba(17,17,17,0.28)) drop-shadow(0 8px 10px rgba(17,17,17,0.25));
+  transform: rotate(-7deg) scale(0.88);
+  opacity:0;
+  will-change:transform;
+}
+.hero-badge{
+  position:absolute;
+  top:14%; left:50%;
+  transform:translateX(-30px);
+  width:110px; height:110px;
+  border-radius:50%;
+  background:var(--paper);
+  border:1.5px solid var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:0.6rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  line-height:1.3;
+  z-index:2;
+  padding:10px;
+}
+.hero-bottom{
+  position:relative; z-index:6;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:32px;
+  flex-wrap:wrap;
+  padding:0 60px 56px;
+  background:linear-gradient(to top, var(--ivory) 40%, rgba(242,239,230,0));
+}
+.hero-lower-left{ max-width:400px; flex:1 1 340px; }
+.hero-lower-left h2{
+  font-family:var(--display);
+  font-size:2.5rem;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  line-height:1.02;
+}
+.hero-lower-left p{
+  font-size:0.92rem;
+  color:var(--grey);
+  line-height:1.6;
+  margin-bottom:22px;
+}
+.hero-cta-row{ display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+
+.hero-spec-panel{
+  z-index:6;
+  border:1px solid var(--ink);
+  background:rgba(250,248,241,0.85);
+  padding:22px 26px;
+  display:flex; gap:28px;
+  flex:0 1 auto;
+  flex-wrap:wrap;
+}
+.spec-item{ text-align:left; }
+.spec-item .num{
+  font-family:var(--display);
+  font-size:2.1rem;
+  line-height:1;
+  color:var(--red);
+  white-space:nowrap;
+}
+.spec-item .lab{
+  font-size:0.66rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--grey);
+  margin-top:6px;
+  border-top:1px solid var(--line);
+  padding-top:6px;
+  display:block;
+  width:100%;
+}
+
+/* ============ SECTION 2: INTRO EDITORIAL ============ */
+.intro{
+  background:var(--paper);
+  padding:100px 0;
+}
+.intro-grid{
+  margin-left:var(--rail-w);
+  display:grid;
+  grid-template-columns:1fr 1.1fr 1fr;
+  gap:40px;
+  align-items:start;
+  padding:0 60px;
+}
+.intro-col-left, .intro-col-right{ padding-top:60px; }
+.intro-col-left h3, .intro-col-right h3{
+  font-family:var(--display);
+  font-size:2.1rem;
+  text-transform:uppercase;
+  margin:14px 0 16px;
+}
+.intro-col-left p{ color:var(--grey); font-size:0.92rem; line-height:1.7; margin-bottom:26px; }
+.sticky-product{
+  position:sticky; top:120px;
+  display:flex; align-items:center; justify-content:center;
+  min-height:520px;
+}
+.sticky-product img{
+  max-height:520px;
+  filter: drop-shadow(0 30px 30px rgba(17,17,17,0.22));
+}
+.spec-panel-bordered{
+  border:1px solid var(--ink);
+  padding:26px;
+}
+.spec-row{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+.spec-row:last-of-type{ border-bottom:none; }
+.spec-row .val{ font-family:var(--display); font-size:1.5rem; color:var(--maroon); }
+.spec-row .lab{ font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:var(--grey); }
+
+/* ============ SECTION 3: PERFORMANCE STORY ============ */
+.story{
+  background:var(--ivory);
+  padding:140px 60px 140px calc(60px + var(--rail-w));
+  position:relative;
+  overflow:hidden;
+}
+.story-bg-text{
+  position:absolute; top:8%; left:0; width:100%;
+  font-family:var(--display);
+  font-size:clamp(4rem, 12vw, 10rem);
+  color:rgba(17,17,17,0.06);
+  text-align:center;
+  white-space:nowrap;
+  z-index:0;
+}
+.story-grid{
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;
+}
+.media-block{
+  aspect-ratio:4/5;
+  background:linear-gradient(160deg, var(--gunmetal), var(--ink));
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+}
+.play-btn{
+  width:64px; height:64px; border-radius:50%;
+  background:var(--red);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .3s ease;
+}
+.play-btn:hover{ transform:scale(1.08); }
+.play-btn svg{ width:20px; height:20px; fill:var(--paper); margin-left:3px; }
+.media-caption{
+  font-family:var(--hand);
+  font-size:1.3rem;
+  margin-top:16px;
+  color:var(--maroon);
+  text-align:center;
+}
+.story-content h4{
+  font-family:var(--display);
+  font-size:1.1rem;
+  letter-spacing:1px;
+  color:var(--red);
+  margin-bottom:10px;
+  margin-top:34px;
+}
+.story-content h4:first-child{ margin-top:0; }
+.story-content p{ color:var(--grey); font-size:0.92rem; line-height:1.75; max-width:480px; }
+
+/* ============ SECTION 4: FORMULA SPLASH ============ */
+.formula{
+  background:var(--paper);
+  padding:140px 60px 140px calc(60px + var(--rail-w));
+  position:relative;
+  min-height:140vh;
+}
+.formula-heading{ text-align:center; margin-bottom:40px; }
+.formula-heading h2{ font-size:clamp(2.6rem, 6vw, 4.5rem); }
+.formula-stage{
+  position:sticky; top:100px;
+  height:80vh;
+  display:flex; align-items:center; justify-content:center;
+}
+.formula-stage img{
+  height:70%; max-height:520px;
+  filter: drop-shadow(0 30px 34px rgba(17,17,17,0.25));
+  position:relative; z-index:5;
+}
+.splash{
+  position:absolute;
+  color:var(--paper);
+  padding:20px 22px;
+  max-width:220px;
+  font-size:0.82rem;
+  line-height:1.5;
+  z-index:4;
+  clip-path: polygon(6% 0%, 94% 4%, 100% 40%, 96% 96%, 60% 100%, 4% 92%, 0% 50%);
+}
+.splash.red{ background:var(--red); }
+.splash.ink{ background:var(--ink); }
+.splash.maroon{ background:var(--maroon); }
+.splash h5{ font-family:var(--display); font-size:1rem; letter-spacing:0.5px; margin-bottom:6px; text-transform:uppercase; }
+.splash .icon{ width:22px; height:22px; margin-bottom:10px; stroke:var(--paper); fill:none; }
+.splash-1{ top:2%; left:2%; }
+.splash-2{ top:6%; right:0%; }
+.splash-3{ bottom:20%; left:0%; }
+.splash-4{ bottom:6%; right:4%; }
+.splash-5{ top:42%; left:-2%; }
+.splash-6{ top:44%; right:-2%; }
+.scoop-corner{
+  position:absolute; bottom:-6%; right:8%;
+  width:130px; opacity:0.9; z-index:3;
+  transform:rotate(12deg);
+}
+
+/* ============ SECTION 5: NUTRITION ============ */
+.nutrition{
+  background:var(--ivory);
+  padding:140px 60px 140px calc(60px + var(--rail-w));
+}
+.nutrition-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; flex-wrap:wrap; gap:20px; }
+.nutrition-head h2{ font-size:clamp(2.6rem, 6vw, 4.5rem); }
+.nutrition-grid{
+  display:grid; grid-template-columns:repeat(3, 1fr); border-top:1px solid var(--ink); border-left:1px solid var(--ink);
+}
+.nutri-cell{
+  border-right:1px solid var(--ink); border-bottom:1px solid var(--ink);
+  padding:34px 28px;
+}
+.nutri-cell .val{ font-family:var(--display); font-size:2.4rem; color:var(--maroon); }
+.nutri-cell .lab{ font-size:0.72rem; letter-spacing:1px; text-transform:uppercase; color:var(--grey); margin-top:8px; }
+
+/* ============ SECTION 6: HOW TO USE ============ */
+.usage{
+  background:var(--paper);
+  padding:140px 60px 140px calc(60px + var(--rail-w));
+  text-align:center;
+}
+.usage h2{ font-size:clamp(2.6rem, 7vw, 5rem); margin-bottom:70px; }
+.usage-steps{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:50px;
+  max-width:1200px; margin:0 auto;
+}
+.usage-step .step-num{
+  font-family:var(--display); font-size:3.2rem; color:rgba(17,17,17,0.14);
+  margin-bottom:10px;
+}
+.usage-step .step-icon{ width:56px; height:56px; margin:0 auto 20px; stroke:var(--maroon); fill:none; stroke-width:1.4; }
+.usage-step h4{ font-family:var(--display); font-size:1.2rem; letter-spacing:1px; margin-bottom:10px; }
+.usage-step p{ color:var(--grey); font-size:0.9rem; line-height:1.6; }
+
+/* ============ SECTION 7: SIZES / FLAVOURS ============ */
+.catalogue{
+  background:var(--ivory);
+  padding:140px 60px 140px calc(60px + var(--rail-w));
+}
+.catalogue h2{ font-size:clamp(2.6rem, 6vw, 4.5rem); margin-bottom:16px; }
+.catalogue-sub{ color:var(--grey); margin-bottom:60px; max-width:520px; font-size:0.95rem; }
+.catalogue-row{
+  display:flex; gap:0; border-top:1px solid var(--ink); overflow-x:auto;
+}
+.cat-item{
+  flex:1 0 240px;
+  border-right:1px solid var(--ink);
+  padding:30px 24px;
+  position:relative;
+  transition:background .25s ease;
+}
+.cat-item:last-child{ border-right:none; }
+.cat-item.selected{ outline:2px solid var(--ink); outline-offset:-2px; }
+.cat-item.selected::before{
+  content:""; position:absolute; top:16px; right:16px;
+  width:8px; height:8px; border-radius:50%; background:var(--red);
+}
+.cat-item img{ height:150px; margin:0 auto 20px; filter:drop-shadow(0 14px 14px rgba(17,17,17,0.18)); }
+.cat-item .weight{ font-family:var(--display); font-size:1.3rem; }
+.cat-item .flavour{ font-size:0.82rem; color:var(--grey); margin:6px 0 14px; }
+.cat-item .price{ font-family:var(--body); font-weight:600; font-size:1rem; margin-bottom:14px; }
+.cat-item .select-btn{
+  font-size:0.68rem; letter-spacing:1.5px; font-weight:600; text-transform:uppercase;
+  padding:9px 16px; border:1px solid var(--ink); display:inline-block; width:100%; text-align:center;
+  transition:all .25s ease;
+}
+.cat-item .select-btn:hover{ background:var(--ink); color:var(--paper); }
+
+/* ============ SECTION 8: LIFESTYLE ============ */
+.lifestyle{
+  display:grid; grid-template-columns:1fr 1fr;
+  min-height:100vh;
+}
+.lifestyle-media{
+  background:linear-gradient(150deg, var(--gunmetal) 0%, var(--ink) 100%);
+  position:relative; overflow:hidden;
+}
+.lifestyle-media::after{
+  content:"TRAINING FLOOR";
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:var(--display); font-size:1.4rem; letter-spacing:3px; color:rgba(250,248,241,0.18);
+}
+.lifestyle-content{
+  padding:100px 70px;
+  display:flex; flex-direction:column; justify-content:center;
+  background:var(--paper);
+}
+.lifestyle-content .headline{ font-size:clamp(2.2rem, 4.5vw, 3.6rem); margin:14px 0 22px; }
+.lifestyle-content p{ color:var(--grey); font-size:0.95rem; line-height:1.7; max-width:420px; margin-bottom:30px; }
+
+/* ============ SECTION 9: REVIEWS ============ */
+.reviews{
+  background:var(--ink); color:var(--paper);
+  padding:140px 60px 140px calc(60px + var(--rail-w));
+  text-align:center;
+}
+.reviews-rating{ font-family:var(--display); font-size:1.2rem; color:var(--yellow); margin-bottom:50px; letter-spacing:1px;}
+.reviews-rating span{ display:block; font-size:0.68rem; letter-spacing:2px; color:var(--grey); margin-top:6px; font-family:var(--body); text-transform:uppercase;}
+.review-slide{ max-width:760px; margin:0 auto; }
+.review-quote{
+  font-family:var(--display);
+  font-size:clamp(1.6rem, 3.4vw, 2.6rem);
+  line-height:1.25;
+  text-transform:none;
+  margin-bottom:30px;
+  min-height:160px;
+}
+.review-meta{ font-size:0.82rem; color:var(--grey); letter-spacing:0.5px; }
+.review-meta b{ color:var(--paper); }
+.review-stars{ color:var(--yellow); margin-bottom:14px; font-size:1rem; letter-spacing:3px; }
+.review-nav{ display:flex; justify-content:center; gap:26px; margin-top:50px; }
+.review-arrow{
+  width:44px; height:44px; border:1px solid rgba(250,248,241,0.3); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .25s ease;
+}
+.review-arrow:hover{ background:var(--paper); border-color:var(--paper); }
+.review-arrow svg{ width:16px; height:16px; stroke:var(--paper); }
+.review-arrow:hover svg{ stroke:var(--ink); }
+
+/* ============ SECTION 10: FINAL PURCHASE ============ */
+.purchase{
+  background:linear-gradient(180deg, var(--maroon), var(--ink));
+  color:var(--paper);
+  padding:0 60px 100px calc(60px + var(--rail-w));
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.purchase-product{
+  width:220px; margin:0 auto; transform:translateY(-30%);
+  filter:drop-shadow(0 30px 40px rgba(0,0,0,0.5));
+}
+.purchase h2{ font-size:clamp(2.8rem, 8vw, 6rem); color:var(--paper); margin-bottom:40px; }
+.purchase-panel{
+  max-width:520px; margin:0 auto;
+  border:1px solid rgba(250,248,241,0.35);
+  padding:34px;
+  text-align:left;
+}
+.purchase-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid rgba(250,248,241,0.15); font-size:0.85rem; }
+.purchase-row:last-of-type{ border-bottom:none; }
+.purchase-row .lab{ color:var(--grey); text-transform:uppercase; letter-spacing:1px; font-size:0.72rem; }
+.qty-row{ display:flex; align-items:center; gap:16px; margin:24px 0; }
+.qty-box{ display:flex; align-items:center; border:1px solid rgba(250,248,241,0.35); }
+.qty-box button{ padding:8px 14px; color:var(--paper); font-size:1rem; }
+.qty-box span{ padding:8px 16px; border-left:1px solid rgba(250,248,241,0.35); border-right:1px solid rgba(250,248,241,0.35); }
+.purchase-actions{ display:flex; gap:16px; margin-top:10px; }
+.btn-outline{
+  flex:1; text-align:center; padding:14px; border:1px solid var(--paper);
+  font-size:0.75rem; letter-spacing:2px; font-weight:600; text-transform:uppercase;
+  transition:all .25s ease;
+}
+.btn-outline:hover{ background:var(--paper); color:var(--ink); }
+.purchase-actions .btn-primary{ flex:1; justify-content:center; }
+
+/* ============ FOOTER ============ */
+footer{
+  background:var(--paper);
+  padding:80px 60px 40px calc(60px + var(--rail-w));
+  border-top:1px solid var(--line);
+}
+.footer-grid{
+  display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr 1.2fr; gap:40px; margin-bottom:60px;
+}
+.footer-grid h5{ font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--grey); margin-bottom:18px; }
+.footer-grid ul{ list-style:none; }
+.footer-grid li{ margin-bottom:10px; font-size:0.88rem; }
+.footer-grid li a:hover{ color:var(--red); }
+.footer-brand .brand{ margin-bottom:16px; }
+.footer-brand p{ color:var(--grey); font-size:0.85rem; max-width:280px; line-height:1.6; margin-bottom:20px;}
+.newsletter{ display:flex; border-bottom:1px solid var(--ink); max-width:280px; }
+.newsletter input{ border:none; background:none; padding:10px 0; flex:1; font-family:var(--body); font-size:0.85rem; }
+.newsletter input:focus{ outline:none; }
+.newsletter button{ font-size:0.7rem; letter-spacing:1px; font-weight:600; text-transform:uppercase; }
+.social-row{ display:flex; gap:14px; margin-top:20px; }
+.social-row a{ width:32px; height:32px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.social-row svg{ width:14px; height:14px; stroke:var(--ink); }
+.footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:24px; border-top:1px solid var(--line); font-size:0.75rem; color:var(--grey); }
+.disclaimer{
+  font-size:0.72rem; color:var(--grey); line-height:1.7; max-width:900px; margin-bottom:30px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px){
+  .intro-grid{ grid-template-columns:1fr; }
+  .sticky-product{ position:relative; top:0; order:-1; }
+  .story-grid{ grid-template-columns:1fr; }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+  .lifestyle{ grid-template-columns:1fr; }
+  .hero-spec-panel{ flex:1 1 100%; order:3; }
+  .hero-lower-left{ flex:1 1 100%; max-width:none; }
+  .hero-bottom{ padding:0 60px 40px; }
+  .hero-visual{ min-height:42vh; }
+}
+@media (max-width: 720px){
+  :root{ --rail-w:0px; }
+  .rail{ display:none; }
+  .topbar{ left:0; height:64px; padding:0 20px; }
+  .wrap, .intro-grid, .story, .formula, .nutrition, .usage, .catalogue, .purchase, footer{
+    margin-left:0 !important; padding-left:24px !important; padding-right:24px !important;
+  }
+  .section-pad{ padding:80px 24px; }
+  .nutrition-grid{ grid-template-columns:repeat(2,1fr); }
+  .usage-steps{ grid-template-columns:1fr; gap:60px; }
+  .splash{ max-width:140px; font-size:0.72rem; padding:14px; }
+  .hero-lower-left h2{ font-size:1.9rem; }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+  body::before{ background-size:180px 180px; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+:focus-visible{ outline:2px solid var(--red); outline-offset:3px; }
+
+/* ============ REFERENCE-INSPIRED ADDITIONS ============ */
+/* custom lagging cursor dot */
+.cursor-dot{
+  position:fixed; top:0; left:0; width:9px; height:9px; border-radius:50%;
+  background:var(--red); pointer-events:none; z-index:10000;
+  transform:translate(-50%,-50%);
+  transition:transform .12s ease-out, width .25s ease, height .25s ease, background .25s ease;
+  mix-blend-mode:difference;
+}
+.cursor-dot.hovering{ width:38px; height:38px; background:var(--paper); }
+@media (max-width:900px), (hover:none){ .cursor-dot{ display:none; } }
+
+/* marquee ticker band */
+.marquee-band{
+  background:var(--ink); color:var(--paper);
+  overflow:hidden; white-space:nowrap;
+  padding:16px 0;
+  border-top:1px solid rgba(250,248,241,0.15);
+  border-bottom:1px solid rgba(250,248,241,0.15);
+}
+.marquee-track{
+  display:inline-flex; gap:48px;
+  animation: marquee 22s linear infinite;
+}
+@media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; } }
+.marquee-track span{
+  font-family:var(--display); text-transform:uppercase; letter-spacing:1px;
+  font-size:1rem; display:inline-flex; align-items:center; gap:48px;
+}
+.marquee-track span::after{ content:"—"; color:var(--red); margin-left:48px; }
+@keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+/* ghost oversized index numbers behind section headlines */
+.section-index{
+  position:relative;
+}
+.section-index::before{
+  content: attr(data-index);
+  position:absolute;
+  top:-0.5em; left:-0.05em;
+  font-family:var(--display);
+  font-size:5.5rem;
+  color:rgba(17,17,17,0.06);
+  z-index:0;
+  line-height:1;
+}
+.reviews .section-index::before, .dark-section .section-index::before{
+  color:rgba(250,248,241,0.08);
+}
+.section-index > *{ position:relative; z-index:1; }
+
+/* dark section variant (cinematic register) */
+.dark-section{
+  background:var(--ink);
+  color:var(--paper);
+}
+.dark-section .story-content h4{ color:var(--red); }
+.dark-section .story-content p{ color:rgba(250,248,241,0.6); }
+.dark-section .story-bg-text{ color:rgba(250,248,241,0.05); }
+.dark-section .media-caption{ color:rgba(250,248,241,0.55); }
+.dark-section .eyebrow{ color:var(--yellow); }
+
+/* duotone image-reveal media block */
+.reveal-media{
+  position:relative;
+  aspect-ratio:4/5;
+  overflow:hidden;
+  background:
+    linear-gradient(160deg, var(--gunmetal) 0%, var(--ink) 100%);
+}
+.reveal-media::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(200,16,46,0.35), transparent 60%),
+    repeating-linear-gradient(115deg, rgba(250,248,241,0.05) 0px, rgba(250,248,241,0.05) 2px, transparent 2px, transparent 6px);
+  mix-blend-mode:overlay;
+}
+.reveal-mask{
+  position:absolute; inset:0;
+  background:var(--paper);
+  transform-origin:left;
+  z-index:2;
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- LEFT NAV RAIL -->
+<nav class="rail" aria-label="Primary">
+  <div class="rail-top">
+    <button class="rail-icon" aria-label="Open menu" id="menuBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <button class="rail-icon" aria-label="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </div>
+  <div class="rail-divider"></div>
+  <div class="rail-progress-track" aria-hidden="true">
+    <div class="rail-progress-fill" id="progressFill"></div>
+  </div>
+  <div class="rail-dots" id="railDots">
+    <span class="rail-dot" data-target="hero" title="Hero"></span>
+    <span class="rail-dot" data-target="intro" title="Intro"></span>
+    <span class="rail-dot" data-target="story" title="Story"></span>
+    <span class="rail-dot" data-target="formula" title="Formula"></span>
+    <span class="rail-dot" data-target="nutrition" title="Nutrition"></span>
+    <span class="rail-dot" data-target="usage" title="Usage"></span>
+    <span class="rail-dot" data-target="catalogue" title="Sizes"></span>
+    <span class="rail-dot" data-target="reviews" title="Reviews"></span>
+    <span class="rail-dot" data-target="purchase" title="Buy"></span>
+  </div>
+</nav>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="brand">MUSCLE<span class="b">BLAZE</span></div>
+  <a href="#purchase" class="buy-now-fixed">Buy Now</a>
+</header>
+
+<!-- SECTION 1: HERO -->
+<section class="hero" id="hero">
+  <div class="hero-visual">
+    <div class="hero-bg-text">
+      <h1 class="headline textured">FUEL<br>THE<br>GRIND</h1>
+    </div>
+    <div class="hero-stage">
+      <div class="hero-badge" id="heroBadge">PERFORMANCE<br>NUTRITION</div>
+      <img src="product.png" alt="MuscleBlaze Biozyme Performance Whey container, rich chocolate flavour, 1kg" class="hero-product" id="heroProduct">
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-lower-left">
+      <span class="eyebrow">Performance nutrition</span>
+      <h2>Biozyme Performance Whey</h2>
+      <p>A whey protein blend formulated for daily training, in Rich Chocolate flavour. Mixes into a smooth shake for use around workouts or any time of day.</p>
+      <div class="hero-cta-row">
+        <a href="#purchase" class="btn btn-primary"><span>Buy Now</span><span class="arrow">→</span></a>
+        <a href="#nutrition" class="btn-ghost">View Nutrition</a>
+      </div>
+    </div>
+    <div class="hero-spec-panel">
+      <div class="spec-item"><div class="num">25g</div><span class="lab">Protein / serving</span></div>
+      <div class="spec-item"><div class="num">5.51g</div><span class="lab">BCAAs</span></div>
+      <div class="spec-item"><div class="num">28</div><span class="lab">Servings</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE TICKER -->
+<div class="marquee-band wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Performance Nutrition</span>
+    <span>Daily Training Formula</span>
+    <span>Rich Chocolate Flavour</span>
+    <span>Enhanced Absorption Whey</span>
+    <span>Performance Nutrition</span>
+    <span>Daily Training Formula</span>
+    <span>Rich Chocolate Flavour</span>
+    <span>Enhanced Absorption Whey</span>
+  </div>
+</div>
+
+<!-- SECTION 2: INTRO -->
+<section class="intro" id="intro">
+  <div class="intro-grid">
+    <div class="intro-col-left">
+      <span class="eyebrow">The formula</span>
+      <h3>Rich Chocolate<br>Flavour</h3>
+      <p>Biozyme Performance Whey is built around an enhanced-absorption whey blend, designed for people training consistently and looking for a straightforward daily protein source.</p>
+      <a href="#purchase" class="btn btn-primary"><span>Buy Now</span><span class="arrow">→</span></a>
+    </div>
+    <div class="sticky-product">
+      <img src="product.png" alt="MuscleBlaze Biozyme Performance Whey container standing upright">
+    </div>
+    <div class="intro-col-right">
+      <span class="eyebrow">At a glance</span>
+      <h3>Key Numbers</h3>
+      <div class="spec-panel-bordered">
+        <div class="spec-row"><span class="val">25g</span><span class="lab">Protein</span></div>
+        <div class="spec-row"><span class="val">5.51g</span><span class="lab">BCAAs</span></div>
+        <div class="spec-row"><span class="val">11.75g</span><span class="lab">EAAs</span></div>
+        <div class="spec-row"><span class="val">36g (1 scoop)</span><span class="lab">Serving size</span></div>
+      </div>
+      <br>
+      <a href="#nutrition" class="btn-ghost">View Full Nutrition</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: PERFORMANCE STORY -->
+<section class="story dark-section" id="story">
+  <div class="story-bg-text">BUILT FOR MORE</div>
+  <div class="story-grid">
+    <div>
+      <div class="reveal-media" id="revealMedia1">
+        <div class="reveal-mask" id="revealMask1"></div>
+        <button class="play-btn" aria-label="Play training video" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:3;">
+          <svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+        </button>
+      </div>
+      <p class="media-caption">See how athletes fuel their training</p>
+    </div>
+    <div class="story-content section-index" data-index="03">
+      <h4>Performance</h4>
+      <p>Formulated to support a consistent daily training routine, not a single workout — something you can rely on week after week.</p>
+      <h4>The Formula</h4>
+      <p>Built on an enhanced-absorption whey protein blend with added BCAAs and EAAs, in a flavour system designed to mix smoothly.</p>
+      <h4>Who It Is For</h4>
+      <p>For anyone training regularly and looking to close the gap between what their diet provides and what their training demands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FORMULA / INGREDIENTS -->
+<section class="formula" id="formula">
+  <div class="formula-heading section-index" data-index="04">
+    <span class="eyebrow">Inside every scoop</span>
+    <h2 class="headline">The Formula</h2>
+  </div>
+  <div class="formula-stage">
+    <div class="splash red splash-1">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><path d="M12 2v20M2 12h20"/></svg>
+      <h5>Whey Protein Blend</h5>
+      <p>An enhanced-absorption whey formula built for daily training use.</p>
+    </div>
+    <div class="splash ink splash-2">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><circle cx="12" cy="12" r="9"/></svg>
+      <h5>5.51g BCAAs</h5>
+      <p>Branched-chain amino acids included per serving.</p>
+    </div>
+    <div class="splash maroon splash-3">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><path d="M4 12h16M12 4v16"/></svg>
+      <h5>11.75g EAAs</h5>
+      <p>Essential amino acids to round out the amino profile.</p>
+    </div>
+    <div class="splash red splash-4">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><path d="M12 2 2 22h20z"/></svg>
+      <h5>Flavour System</h5>
+      <p>Rich Chocolate flavour, designed to mix smoothly with water or milk.</p>
+    </div>
+    <div class="splash ink splash-5">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><rect x="4" y="4" width="16" height="16"/></svg>
+      <h5>Digestive Enzymes</h5>
+      <p>Included to support comfortable everyday use.</p>
+    </div>
+    <div class="splash maroon splash-6">
+      <svg class="icon" viewBox="0 0 24 24" stroke-width="1.6"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+      <h5>Ingredients</h5>
+      <p>Whey protein concentrate blend, cocoa powder, MB EnzymePro® digestive enzymes, emulsifier (lecithin), nature-identical flavouring, sweetener, salt.</p>
+    </div>
+    <img src="product.png" alt="MuscleBlaze Biozyme Performance Whey container, formula stage">
+  </div>
+</section>
+
+<!-- SECTION 5: NUTRITION -->
+<section class="nutrition" id="nutrition">
+  <div class="nutrition-head section-index" data-index="05">
+    <h2 class="headline">What's<br>Inside</h2>
+    <a href="#" class="btn btn-primary" id="downloadBtn"><span>Download Nutrition Facts</span><span class="arrow">→</span></a>
+  </div>
+  <div class="nutrition-grid">
+    <div class="nutri-cell"><div class="val">36g (1 scoop)</div><div class="lab">Serving size</div></div>
+    <div class="nutri-cell"><div class="val">131 kcal</div><div class="lab">Calories</div></div>
+    <div class="nutri-cell"><div class="val">25g</div><div class="lab">Protein</div></div>
+    <div class="nutri-cell"><div class="val">3.02g</div><div class="lab">Carbohydrates</div></div>
+    <div class="nutri-cell"><div class="val">1.98g</div><div class="lab">Total fat</div></div>
+    <div class="nutri-cell"><div class="val">0g</div><div class="lab">Sugar</div></div>
+    <div class="nutri-cell"><div class="val">5.51g</div><div class="lab">BCAAs</div></div>
+    <div class="nutri-cell"><div class="val">11.75g</div><div class="lab">EAAs</div></div>
+    <div class="nutri-cell"><div class="val">28</div><div class="lab">Servings per container</div></div>
+  </div>
+</section>
+
+<!-- SECTION 6: HOW TO USE -->
+<section class="usage" id="usage">
+  <div class="section-index" data-index="06" style="display:inline-block;">
+    <h2 class="headline">Shake.<br>Train.<br>Recover.</h2>
+  </div>
+  <div class="usage-steps">
+    <div class="usage-step">
+      <div class="step-num">01</div>
+      <svg class="step-icon" viewBox="0 0 24 24" stroke-width="1.4"><path d="M6 10h12l-1.5 9h-9z"/><path d="M8 10 10 3h4l2 7"/></svg>
+      <h4>Scoop</h4>
+      <p>Add <strong>36g (1 scoop)</strong> of Biozyme Performance Whey using the enclosed scoop.</p>
+    </div>
+    <div class="usage-step">
+      <div class="step-num">02</div>
+      <svg class="step-icon" viewBox="0 0 24 24" stroke-width="1.4"><path d="M7 3h10l-1 6H8z"/><path d="M6 9h12l-1 12H7z"/></svg>
+      <h4>Mix</h4>
+      <p>Shake with the recommended quantity of water or milk until smooth.</p>
+    </div>
+    <div class="usage-step">
+      <div class="step-num">03</div>
+      <svg class="step-icon" viewBox="0 0 24 24" stroke-width="1.4"><path d="M12 21c4-3 7-6 7-10a7 7 0 10-14 0c0 4 3 7 7 10z"/></svg>
+      <h4>Consume</h4>
+      <p>Follow the timing instructions printed on the product packaging.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: SIZES & FLAVOURS -->
+<section class="catalogue" id="catalogue">
+  <div class="section-index" data-index="07" style="display:inline-block;">
+    <h2 class="headline">Choose<br>Your Fuel</h2>
+  </div>
+  <p class="catalogue-sub">Biozyme Performance Whey, 1kg (2.2lb), 28 servings — shown here in Rich Chocolate, MuscleBlaze's most-reviewed flavour in the range.</p>
+  <div class="catalogue-row">
+    <div class="cat-item selected">
+      <img src="product.png" alt="1kg Rich Chocolate pack">
+      <div class="weight">1kg (2.2lb)</div>
+      <div class="flavour">Rich Chocolate · 28 servings</div>
+      <div class="price">₹3,599</div>
+      <div class="select-btn">Selected</div>
+    </div>
+    <div class="cat-item">
+      <img src="product.png" alt="1kg pack, Magical Mango flavour (visual shown in Rich Chocolate packaging)">
+      <div class="weight">1kg (2.2lb)</div>
+      <div class="flavour">Magical Mango · 28 servings</div>
+      <div class="price">₹3,599</div>
+      <div class="select-btn">Select</div>
+    </div>
+    <div class="cat-item">
+      <img src="product.png" alt="1kg pack, Chocolate Hazelnut flavour (visual shown in Rich Chocolate packaging)">
+      <div class="weight">1kg (2.2lb)</div>
+      <div class="flavour">Chocolate Hazelnut · 28 servings</div>
+      <div class="price">₹3,599</div>
+      <div class="select-btn">Select</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: LIFESTYLE -->
+<section class="lifestyle" id="lifestyle">
+  <div class="lifestyle-media" id="lifestyleMedia" aria-hidden="true"></div>
+  <div class="lifestyle-content">
+    <span class="eyebrow">Made for the work</span>
+    <h2 class="headline">Your Training<br>Deserves Better<br>Fuel.</h2>
+    <p>Consistency is the hard part. Biozyme Performance Whey is built to be the easy part — a straightforward daily protein source for people who train regularly.</p>
+    <a href="#purchase" class="btn btn-primary"><span>Shop Now</span><span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- SECTION 9: REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="reviews-rating">4.4 / 5<span>Based on 4,000+ verified retailer reviews</span></div>
+  <div class="review-slide">
+    <div class="review-stars" id="reviewStars">★★★★★</div>
+    <p class="review-quote" id="reviewQuote">Mixes smoothly and easy to fit into my routine after every session.</p>
+    <div class="review-meta" id="reviewMeta"><b>Rohan</b> · Verified Buyer · Rich Chocolate · Strength Training</div>
+  </div>
+  <div class="review-nav">
+    <button class="review-arrow" id="prevReview" aria-label="Previous review">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <button class="review-arrow" id="nextReview" aria-label="Next review">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><polyline points="9,18 15,12 9,6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- SECTION 10: FINAL PURCHASE -->
+<section class="purchase" id="purchase">
+  <img src="product.png" alt="MuscleBlaze Biozyme Performance Whey container" class="purchase-product">
+  <h2 class="headline">Ready To<br>Fuel The<br>Next Rep?</h2>
+  <div class="purchase-panel">
+    <div class="purchase-row"><span class="lab">Product</span><span>Biozyme Performance Whey</span></div>
+    <div class="purchase-row"><span class="lab">Flavour</span><span>Rich Chocolate</span></div>
+    <div class="purchase-row"><span class="lab">Size</span><span>1kg (2.2lb)</span></div>
+    <div class="purchase-row"><span class="lab">Price</span><span>₹3,599 <span style="opacity:0.5; text-decoration:line-through; font-size:0.8em;">₹3,999</span></span></div>
+    <div class="qty-row">
+      <span class="purchase-row lab" style="border:none; padding:0;">Quantity</span>
+      <div class="qty-box">
+        <button id="qtyMinus" aria-label="Decrease quantity">–</button>
+        <span id="qtyVal">1</span>
+        <button id="qtyPlus" aria-label="Increase quantity">+</button>
+      </div>
+    </div>
+    <div class="purchase-actions">
+      <button class="btn-outline">Add to Cart</button>
+      <a href="#" class="btn btn-primary"><span>Buy Now</span><span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand">MUSCLE<span class="b">BLAZE</span></div>
+      <p>Concept campaign page for Biozyme Performance Whey. Built as a design demonstration, not an official MuscleBlaze storefront.</p>
+      <div class="newsletter">
+        <input type="email" placeholder="Your email" aria-label="Email for newsletter">
+        <button>Join</button>
+      </div>
+      <div class="social-row">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/></svg></a>
+        <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="3"/><polygon points="10,9 16,12 10,15"/></svg></a>
+      </div>
+    </div>
+    <div><h5>Shop</h5><ul><li><a href="#catalogue">All Sizes</a></li><li><a href="#catalogue">Flavours</a></li><li><a href="#purchase">Buy Now</a></li></ul></div>
+    <div><h5>Product</h5><ul><li><a href="#nutrition">Nutrition Info</a></li><li><a href="#formula">Formula</a></li><li><a href="#usage">How To Use</a></li></ul></div>
+    <div><h5>Support</h5><ul><li><a href="#">Customer Support</a></li><li><a href="#">Shipping Info</a></li><li><a href="#">Return Policy</a></li></ul></div>
+    <div><h5>Legal</h5><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms</a></li></ul></div>
+  </div>
+  <p class="disclaimer">This page is an unofficial concept design created for demonstration purposes and is not affiliated with or endorsed by MuscleBlaze. Product name, flavour and net weight shown reflect the supplied packaging image; all other figures are placeholders pending confirmed product data. Nutritional information should always be verified against the physical product label before use.</p>
+  <div class="footer-bottom">
+    <span>© 2026 MuscleBlaze Concept Campaign — Design Demo</span>
+    <span>All content for illustrative purposes only</span>
+  </div>
+</footer>
+
+<div id="liveregion" aria-live="polite" class="sr-only" style="position:absolute; width:1px; height:1px; overflow:hidden;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+/* ---------- Scroll progress + active section dots ---------- */
+const sections = ['hero','intro','story','formula','nutrition','usage','catalogue','reviews','purchase']
+  .map(id => document.getElementById(id))
+  .filter(Boolean);
+const dots = document.querySelectorAll('.rail-dot');
+const progressFill = document.getElementById('progressFill');
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.target);
+    if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+});
+
+function updateScrollUI(){
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  if (progressFill) progressFill.style.height = pct + '%';
+
+  let activeIndex = 0;
+  sections.forEach((sec, i) => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= window.innerHeight * 0.5) activeIndex = i;
+  });
+  dots.forEach((d,i) => d.classList.toggle('active', i === activeIndex));
+}
+window.addEventListener('scroll', updateScrollUI, { passive: true });
+updateScrollUI();
+
+/* ---------- Hero entrance (fade + settle only; rotation is scroll-driven below) ---------- */
+if (window.gsap) {
+  gsap.to('#heroProduct', {
+    opacity: 1,
+    scale: 1,
+    duration: reduceMotion ? 0.01 : 1.2,
+    ease: 'power3.out',
+    delay: 0.2
+  });
+
+  /* Scroll-scrubbed product tilt + parallax, as seen in the reference video:
+     the jar straightens and drifts as the hero is scrolled through. */
+  if (!reduceMotion && window.ScrollTrigger) {
+    gsap.to('#heroProduct', {
+      rotate: 4,
+      y: -60,
+      scale: 1.06,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 0.6
+      }
+    });
+    gsap.to('#heroBadge', {
+      y: -30,
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'center top',
+        scrub: 0.6
+      }
+    });
+  }
+
+  if (!reduceMotion) {
+    /* Formula splashes reveal */
+    gsap.utils.toArray('.splash').forEach((el, i) => {
+      gsap.fromTo(el,
+        { clipPath: 'polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%)', opacity: 0 },
+        {
+          clipPath: 'polygon(6% 0%, 94% 4%, 100% 40%, 96% 96%, 60% 100%, 4% 92%, 0% 50%)',
+          opacity: 1,
+          duration: 0.6,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.formula',
+            start: 'top 60%',
+            toggleActions: 'play none none reverse'
+          },
+          delay: i * 0.08
+        }
+      );
+    });
+
+    /* spec values rise-in */
+    gsap.utils.toArray('.nutri-cell, .spec-row, .spec-item').forEach(el => {
+      gsap.from(el, {
+        y: 24, opacity: 0, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none reverse' }
+      });
+    });
+
+    /* catalogue items stagger */
+    gsap.from('.cat-item', {
+      y: 30, opacity: 0, duration: 0.6, ease: 'power3.out', stagger: 0.12,
+      scrollTrigger: { trigger: '.catalogue-row', start: 'top 85%' }
+    });
+
+    /* story background text parallax */
+    gsap.to('.story-bg-text', {
+      xPercent: -8,
+      ease: 'none',
+      scrollTrigger: { trigger: '.story', start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  }
+}
+
+/* ---------- Magnetic buttons ---------- */
+if (!reduceMotion && window.gsap) {
+  document.querySelectorAll('.btn-primary, .buy-now-fixed').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      gsap.to(btn, { x: x * 0.25, y: y * 0.4, duration: 0.3, ease: 'power2.out' });
+    });
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.4, ease: 'power3.out' });
+    });
+  });
+}
+
+/* ---------- Reviews slider ---------- */
+const reviewData = [
+  { quote: 'Mixes smoothly and easy to fit into my routine after every session.', name: 'Rohan', flavour: 'Rich Chocolate', goal: 'Strength Training', stars: 5 },
+  { quote: 'Good everyday protein — no clumping, dissolves well in a shaker.', name: 'Ananya', flavour: 'Rich Chocolate', goal: 'General Fitness', stars: 4 },
+  { quote: 'Been using it after gym for a few months now, taste holds up well.', name: 'Vikram', flavour: 'Rich Chocolate', goal: 'Muscle Building', stars: 5 }
+];
+let reviewIndex = 0;
+const reviewQuote = document.getElementById('reviewQuote');
+const reviewMeta = document.getElementById('reviewMeta');
+const reviewStars = document.getElementById('reviewStars');
+
+function renderReview(i){
+  const r = reviewData[i];
+  reviewQuote.textContent = r.quote;
+  reviewMeta.innerHTML = `<b>${r.name}</b> · Verified Buyer · ${r.flavour} · ${r.goal}`;
+  reviewStars.textContent = '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+}
+document.getElementById('nextReview').addEventListener('click', () => {
+  reviewIndex = (reviewIndex + 1) % reviewData.length;
+  renderReview(reviewIndex);
+});
+document.getElementById('prevReview').addEventListener('click', () => {
+  reviewIndex = (reviewIndex - 1 + reviewData.length) % reviewData.length;
+  renderReview(reviewIndex);
+});
+
+/* ---------- Quantity selector ---------- */
+let qty = 1;
+const qtyVal = document.getElementById('qtyVal');
+document.getElementById('qtyPlus').addEventListener('click', () => { qty++; qtyVal.textContent = qty; });
+document.getElementById('qtyMinus').addEventListener('click', () => { qty = Math.max(1, qty - 1); qtyVal.textContent = qty; });
+
+/* ---------- Download nutrition facts (demo modal via alert-free approach) ---------- */
+document.getElementById('downloadBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  const region = document.getElementById('liveregion');
+  region.textContent = 'Full nutrition facts will be available once product data is confirmed.';
+});
+
+/* ---------- Hamburger menu (stub toggle) ---------- */
+document.getElementById('menuBtn').addEventListener('click', () => {
+  document.getElementById('liveregion').textContent = 'Menu panel would open here.';
+});
+
+/* ---------- Custom lagging cursor dot (reference-inspired) ---------- */
+const cursorDot = document.getElementById('cursorDot');
+const hasHover = window.matchMedia('(hover:hover)').matches;
+if (cursorDot && hasHover && !reduceMotion) {
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function loop(){
+    cx += (mx - cx) * 0.18;
+    cy += (my - cy) * 0.18;
+    cursorDot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a, button, .cat-item').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorDot.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursorDot.classList.remove('hovering'));
+  });
+}
+
+/* ---------- Image reveal-mask wipe (scroll triggered) ---------- */
+if (window.gsap && !reduceMotion) {
+  ['revealMask1'].forEach(id => {
+    const mask = document.getElementById(id);
+    if (!mask) return;
+    gsap.to(mask, {
+      scaleX: 0,
+      transformOrigin: 'right',
+      duration: 1,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: mask.closest('.reveal-media'), start: 'top 75%' }
+    });
+  });
+} else {
+  document.querySelectorAll('.reveal-mask').forEach(m => m.style.display = 'none');
+}
+</script>
+
+</body>
+</html>
